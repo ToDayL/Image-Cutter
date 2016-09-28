@@ -4,7 +4,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <IncludePath>$(OPENCV_PATH)\build\include\opencv2;$(OPENCV_PATH)\build\include\opencv;$(OPENCV_PATH)\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(OPENCV_PATH)\build\x86\vc12\staticlib;$(OPENCV_PATH)\build\x86\vc12\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(OPENCV_PATH)\build\x64\vc12\staticlib;$(OPENCV_PATH)\build\x64\vc12\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>

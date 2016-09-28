@@ -1,5 +1,5 @@
 #pragma once
-
+#include <opencv2\core.hpp>
 
 // CMainDlg ¶Ô»°¿ò
 
@@ -24,4 +24,9 @@ private:
 	int m_window_height;
 	int m_HDC_width;
 	int m_HDC_height;
+
+private:
+	void drawToDC(const cv::Mat &, CDC *,const cv::Rect &);
+public:
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
