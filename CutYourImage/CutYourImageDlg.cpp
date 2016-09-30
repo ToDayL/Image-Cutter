@@ -6,7 +6,7 @@
 #include "CutYourImage.h"
 #include "CutYourImageDlg.h"
 #include "afxdialogex.h"
-
+#include "MainDlg.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -28,6 +28,8 @@ public:
 // 实现
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+//	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
@@ -40,6 +42,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+//	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -62,6 +65,7 @@ BEGIN_MESSAGE_MAP(CCutYourImageDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_LOADSINGLE, &CCutYourImageDlg::OnBnClickedLoadsingle)
 END_MESSAGE_MAP()
 
 
@@ -150,3 +154,19 @@ HCURSOR CCutYourImageDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CCutYourImageDlg::OnBnClickedLoadsingle()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	CMainDlg mdlg;
+	mdlg.DoModal();
+}
+
+
+//void CAboutDlg::OnSize(UINT nType, int cx, int cy)
+//{
+//	CDialogEx::OnSize(nType, cx, cy);
+//
+//	// TODO:  在此处添加消息处理程序代码
+//}

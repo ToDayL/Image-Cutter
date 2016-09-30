@@ -25,8 +25,17 @@ private:
 	int m_HDC_width;
 	int m_HDC_height;
 
+	cv::Mat m_show;
+	cv::Rect m_drawRect;
+
 private:
-	void drawToDC(const cv::Mat &, CDC *,const cv::Rect &);
+	void CMainDlg::DrawPicToHDC(const cv::Mat &cvImg, CDC *pDC, const cv::Point &insert);
+	void DBBuffering(CDC *pDC);
+	BOOL OnInitDialog();
 public:
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	//afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnBnClickedNext();
 };
