@@ -78,7 +78,7 @@ void CMainDlg::DrawPicToHDC(const cv::Mat &cvImg, CDC *pDC, const cv::Point &ins
 
 	for (int i = 0; i < winSize.height; i++)
 	{
-		memcpy(ppdata, (cvImgTmp.data + i*winSize.width * 3), lineByte);
+		memcpy(ppdata, (cvImgTmp.data + i*winSize.width * 3), winSize.width * 3);
 		ppdata += lineByte;
 	}
 	
@@ -139,7 +139,7 @@ BOOL CMainDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	//SetWindowPos(&wndNoTopMost, 50, 50, 1000, 700, SWP_SHOWWINDOW);
+	SetWindowPos(&wndNoTopMost, 50, 50, 1000, 700, SWP_SHOWWINDOW);
 
 	return true;
 }
