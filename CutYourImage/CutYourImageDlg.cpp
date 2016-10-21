@@ -30,6 +30,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 //	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
@@ -43,6 +44,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 //	ON_WM_SIZE()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -170,3 +172,12 @@ void CCutYourImageDlg::OnBnClickedLoadsingle()
 //
 //	// TODO:  在此处添加消息处理程序代码
 //}
+
+
+BOOL CAboutDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
+
+	//return CDialogEx::OnEraseBkgnd(pDC);
+	return true;
+}

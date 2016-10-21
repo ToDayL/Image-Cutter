@@ -112,7 +112,7 @@ void CMainDlg::DBBuffering(CDC *pDC)
 	CDC memDC;
 	memDC.CreateCompatibleDC(NULL);
 	CBitmap memBitmap;
-
+	m_show = cv::imread("C:\\Users\\lijin\\Pictures\\lena.jpg");
 	CRect rect;
 	GetDlgItem(IDC_IMAGEAREA)->GetClientRect(&rect);
 	memBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
@@ -162,12 +162,12 @@ void CMainDlg::OnPaint()
 
 		CRect CDCSize;
 		GetDlgItem(IDC_IMAGEAREA)->GetClientRect(&CDCSize);
-
-		m_show =  cv::imread("C:\\Users\\lijin\\Pictures\\lena.jpg");
-		cv::resize(m_show, m_show, cv::Size(CDCSize.right - CDCSize.left, CDCSize.bottom - CDCSize.top));
+		
+		//cv::resize(m_show, m_show, cv::Size(CDCSize.right - CDCSize.left, CDCSize.bottom - CDCSize.top));
 
 		DBBuffering(pshow);
 	}
+
 }
 
 
@@ -185,7 +185,7 @@ void CMainDlg::OnSize(UINT nType, int cx, int cy)
 	CRect rImage = rWindow;
 	if (p_image != NULL)
 	{
-		rImage.bottom = rImage.bottom - 50;
+		rImage.bottom = rImage.bottom - 50 > 0 ? rImage.bottom - 50 : 0;
 		p_image->MoveWindow(rImage);
 	}
 	
@@ -197,7 +197,13 @@ void CMainDlg::OnSize(UINT nType, int cx, int cy)
 		rnext.bottom = rnext.top + 30;
 		rnext.right = rImage.right - 10;
 		rnext.left = rnext.right - 60;
-		p_next->MoveWindow(rnext);
+		if (rnext.top > 0 &&
+			rnext.bottom < rWindow.bottom &&
+			rnext.right < rWindow.right &&
+			rnext.left>0)
+		{
+			p_next->MoveWindow(rnext);
+		}
 	}
 	
 }
@@ -210,3 +216,5 @@ void CMainDlg::OnBnClickedNext()
 	CDC* pDC = GetDlgItem(IDC_IMAGEAREA)->GetDC();
 	DBBuffering(pDC);
 }
+
+
