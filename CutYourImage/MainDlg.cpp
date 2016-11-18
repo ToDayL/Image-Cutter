@@ -62,13 +62,13 @@ void CMainDlg::DrawPicToHDC(const cv::Mat &cvImg, CDC *pDC, const cv::Point &ins
 	cv::Mat cvImgTmp(deltwinSize, CV_8UC3);
 	cvImgTmp.setTo(cv::Scalar(240, 240, 240));
 
-	for (int i = 0, m = insert.y; i < i_rows; i++, m++)
+	for (int i = 0, m = insert.y; i < i_rows; i++,m++)
 	{
-		for (int j = 0, n = insert.x; j < i_cols; j++, n++)
+		for (int j = 0, n = insert.x; j < i_cols; j++,n++)
 		{
 			if (m >= 0 && n >= 0 && m < winSize.height &&n < winSize.width)
 			{
-				cvImgTmp.at<cv::Vec3b>(i, j) = cvImg.at<cv::Vec3b>(i, j);
+				cvImgTmp.at<cv::Vec3b>(m, n) = cvImg.at<cv::Vec3b>(i, j);
 			}
 		}
 	}
@@ -112,13 +112,23 @@ void CMainDlg::DBBuffering(CDC *pDC)
 	CDC memDC;
 	memDC.CreateCompatibleDC(NULL);
 	CBitmap memBitmap;
-	m_show = cv::imread("C:\\Users\\lijin\\Pictures\\lena.jpg");
 	CRect rect;
 	GetDlgItem(IDC_IMAGEAREA)->GetClientRect(&rect);
 	memBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
 	CBitmap *pOldBit = memDC.SelectObject(&memBitmap);
 	memDC.FillSolidRect(0, 0, rect.right, rect.bottom, RGB(240, 240, 240));
-	DrawPicToHDC(m_show, &memDC, cv::Size(0, 0));
+	if (m_show.cols < rect.right && m_show.rows < rect.bottom)
+	{
+		m_focusCenter.x = m_show.cols / 2;
+		m_focusCenter.y = m_show.rows / 2;
+ 	}
+
+	m_CDCCenter.x = rect.right/2;
+	m_CDCCenter.y = rect.bottom/2;
+
+	cv::Point insert_p(m_CDCCenter.x - m_focusCenter.x, m_CDCCenter.y - m_focusCenter.y);
+
+	DrawPicToHDC(m_show, &memDC, insert_p);
 	pDC->BitBlt(0, 0, rect.right, rect.bottom, &memDC, 0, 0, SRCCOPY);
 	memDC.SelectObject(pOldBit);
 	memBitmap.DeleteObject();
@@ -140,7 +150,10 @@ BOOL CMainDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	SetWindowPos(&wndNoTopMost, 50, 50, 1000, 700, SWP_SHOWWINDOW);
-
+	m_show = cv::imread("C:\\Users\\lijin\\Pictures\\lena.jpg");
+	cv::resize(m_show, m_show, cv::Size(0, 0), 3, 3, CV_INTER_CUBIC);
+	m_focusCenter.x = m_show.cols / 2;
+	m_focusCenter.y = m_show.rows / 2;
 	return true;
 }
 

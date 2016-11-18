@@ -26,6 +26,9 @@ private:
 	int m_HDC_width;
 	int m_HDC_height;
 
+	cv::Point m_focusCenter;
+	cv::Point m_CDCCenter;
+
 	// Image data
 	cv::Mat m_origin;
 	cv::Mat m_show;
@@ -42,7 +45,7 @@ public:
 	bool m_positive;
 
 private:
-	void CMainDlg::DrawPicToHDC(const cv::Mat &cvImg, CDC *pDC, const cv::Point &insert);
+	void CMainDlg::DrawPicToHDC(const cv::Mat &, CDC *, const cv::Point &);
 	void DBBuffering(CDC *pDC);
 	BOOL OnInitDialog();
 public:
